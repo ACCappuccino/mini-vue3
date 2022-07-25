@@ -2,7 +2,7 @@
  * @Author: Mocha
  * @Date: 2022-06-29 11:52:09
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-24 23:03:23
+ * @LastEditTime: 2022-07-25 21:30:32
  * @Description: reactive的实现
  */
 
@@ -34,6 +34,10 @@ export function isReadonly(value) {
 export function isReactive(value) {
     // !!如果是undefined 返回false
     return !!value[ReactiveFlags.IS_REACTIVE];
+}
+
+export function isProxy(value) {
+    return isReadonly(value) || isReactive(value);
 }
 
 export function createActiveObject(raw: any, baseHandlers) {
