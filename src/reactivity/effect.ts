@@ -2,7 +2,7 @@
  * @Author: Mocha
  * @Date: 2022-06-29 14:26:39
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-25 21:26:04
+ * @LastEditTime: 2022-07-31 15:59:03
  * @Description:
  */
 
@@ -75,7 +75,11 @@ export function track(target, key) {
         // 创建完了存到depsMap中
         depsMap.set(key, dep);
     }
+    trackEffects(dep);
+}
 
+// 抽离封装依赖收集 ref那边也会用到
+export function trackEffects(dep) {
     // 如果已经在dep中 就不需要搜集了
     if (dep.has(activeEffective)) return;
     dep.add(activeEffective);
@@ -87,6 +91,9 @@ export function track(target, key) {
 export function trigger(target, key) {
     let depsMap = targetMap.get(target);
     let dep = depsMap.get(key);
+    triggerEffect(dep);
+}
+export function triggerEffect(dep) {
     for (const effect of dep) {
         if (effect.scheduler) {
             effect.scheduler();
@@ -95,7 +102,6 @@ export function trigger(target, key) {
         }
     }
 }
-
 export function effect(fn, options: any = {}) {
     const _effect = new ReactiveEffect(fn, options.scheduler);
     _effect.run();
@@ -114,6 +120,6 @@ export function stop(runner) {
     runner.effect.stop();
 }
 
-function isTracking() {
+export function isTracking() {
     return shouldTrack && activeEffective !== undefined;
 }
