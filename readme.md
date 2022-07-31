@@ -2,7 +2,7 @@
  * @Author: Mocha
  * @Date: 2022-07-31 16:57:48
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-31 17:14:22
+ * @LastEditTime: 2022-07-31 17:16:42
  * @Description: 
 -->
 ## mini-vue是一个最简Vue3模型
@@ -25,3 +25,10 @@
 - [x] 支持 isProxy
 - [x] 支持 shallowReadonly
 - [x] 支持 proxyRefs
+
+###TODO
+
+#### runtime-core
+### compiler-core
+### runtime-dom
+### infrastructure
