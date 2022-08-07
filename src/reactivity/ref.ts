@@ -2,7 +2,7 @@
  * @Author: Mocha
  * @Date: 2022-07-31 14:18:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-31 16:53:23
+ * @LastEditTime: 2022-08-07 14:57:42
  * @Description:
  */
 
@@ -13,6 +13,7 @@ class RefImpl {
     private _value: any;
     public dep;
     private _rawValue: any; //用于记录没有被reactive之前的原始值
+    public __v_isRef = true;
     constructor(value) {
         this._rawValue = value;
         this._value = convert(value);
@@ -46,4 +47,12 @@ function convert(value) {
 }
 export function ref(value) {
     return new RefImpl(value);
+}
+export function isRef(ref) {
+    return !!ref.__v_isRef;
+}
+export function unRef(ref) {
+    // 是否ref对象
+    // ref对象 返回ref.value
+    return isRef(ref) ? ref.value : ref;
 }
