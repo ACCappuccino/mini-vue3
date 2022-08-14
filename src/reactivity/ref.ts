@@ -2,7 +2,7 @@
  * @Author: Mocha
  * @Date: 2022-07-31 14:18:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-08-07 14:57:42
+ * @LastEditTime: 2022-08-14 15:41:07
  * @Description:
  */
 
@@ -55,4 +55,19 @@ export function unRef(ref) {
     // 是否ref对象
     // ref对象 返回ref.value
     return isRef(ref) ? ref.value : ref;
+}
+export function proxyRefs(objectWithRefs) {
+    // get set
+    return new Proxy(objectWithRefs, {
+        get(target, key) {
+            return unRef(Reflect.get(target, key));
+        },
+        set(target, key, value) {
+            if (isRef(target[key]) && !isRef(value)) {
+                return (target[key].value = value);
+            } else {
+                return Reflect.set(target, key, value);
+            }
+        },
+    });
 }
