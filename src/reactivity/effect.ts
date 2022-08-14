@@ -2,7 +2,7 @@
  * @Author: Mocha
  * @Date: 2022-06-29 14:26:39
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-31 15:59:03
+ * @LastEditTime: 2022-08-14 18:54:14
  * @Description:
  */
 
@@ -10,7 +10,7 @@ import { extend } from "../shared";
 
 let activeEffective; // 全局变量activeEffective
 let shouldTrack; // 是否应该搜集依赖
-class ReactiveEffect {
+export class ReactiveEffect {
     private _fn: any;
     deps = [];
     active = true; // stop状态
